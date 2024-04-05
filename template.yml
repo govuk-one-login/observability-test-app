@@ -225,6 +225,9 @@ Resources:
               awslogs-stream-prefix: "ecs"      
           HealthCheck:
             Command:  [ "CMD-SHELL", "curl --fail http://localhost:8000/healthcheck || exit 1" ]
+          Environment:
+            - Name: DT_LOGLEVELCON
+              Value: info
       Cpu: 1024
       Memory: 2048
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
