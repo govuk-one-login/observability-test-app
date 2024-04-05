@@ -10,10 +10,16 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - name: Login to GDS Dev Dynatrace Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: nbg00813.live.dynatrace.com
+        username: nbg00813
+        password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
     - name: Deploy SAM app to ECR
       uses: govuk-one-login/devplatform-upload-action-ecr@1.2.1
       with:
         artifact-bucket-name: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
-        template-file: template.yaml
+        template-file: template.yml
         role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
         ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
