@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy SAM app to ECR
-      uses: govuk-one-login/devplatform-upload-action-ecr@<version_number>
+      uses: govuk-one-login/devplatform-upload-action-ecr@1.2.1
       with:
         artifact-bucket-name: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
         template-file: template.yaml
