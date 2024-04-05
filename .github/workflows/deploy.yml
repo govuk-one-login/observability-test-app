@@ -1,0 +1,16 @@
+name: Deploy
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy SAM app to ECR
+      uses: govuk-one-login/devplatform-upload-action-ecr@<version_number>
+      with:
+        artifact-bucket-name: ${{ secrets.ARTIFACT_SOURCE_BUCKET_NAME }}
+        template-file: template.yaml
+        role-to-assume-arn: ${{ secrets.GH_ACTIONS_ROLE_ARN }}
+        ecr-repo-name: ${{ secrets.ECR_REPOSITORY }}
