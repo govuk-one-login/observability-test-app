@@ -14,6 +14,10 @@ app.get('/healthcheck', (req, res) => {
   res.send('ok');
 });
 
+app.get('/headers', (req, res) => {
+  res.send(req.headers);
+})
+
 app.use(express.static('public'));
 
 app.use('/api/dogs', dogRouter(dogService));
