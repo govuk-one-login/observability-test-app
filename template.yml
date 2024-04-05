@@ -222,7 +222,9 @@ Resources:
               awslogs-group: "/ecs/server"
               awslogs-region: "eu-west-2"
               awslogs-create-group: "true"
-              awslogs-stream-prefix: "ecs"
+              awslogs-stream-prefix: "ecs"      
+          HealthCheck:
+            Command:  [ "CMD-SHELL", "curl --fail http://localhost:8000/healthcheck || exit 1" ]
       Cpu: 1024
       Memory: 2048
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
