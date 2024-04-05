@@ -60,7 +60,8 @@ Parameters:
 
 Mappings:
   ElasticLoadBalancerAccountIds:
-    eu-west-2: 468565409170
+    eu-west-2: 
+      AccountId: 468565409170
 
 Conditions:
   UseCodeSigning:
