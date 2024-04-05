@@ -6,6 +6,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Deploy SAM app to ECR
       uses: govuk-one-login/devplatform-upload-action-ecr@1.2.1
