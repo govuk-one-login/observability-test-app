@@ -14,9 +14,7 @@ app.get('/healthcheck', (req, res) => {
   res.send('ok');
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
+app.use(express.static('public'));
 
 app.use('/api/dogs', dogRouter(dogService));
 
