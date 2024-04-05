@@ -81,25 +81,6 @@ Conditions:
         - !Ref NotificationTopicArn
         - "none"
 
-Mappings:
-  # see https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
-  ElasticLoadBalancerAccountIds:
-    eu-west-2:
-      AccountId: 652711504416
-  EnvironmentConfiguration:
-    # Requires KMSApiEnabled and SecretsManagerApiEnabled in the VPC Stack
-    # See https://github.com/govuk-one-login/observability-infrastructure/blob/main/fargate/README.md
-    dev:
-      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables  # pragma: allowlist secret
-    build:
-      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables  # pragma: allowlist secret
-    staging:
-      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables  # pragma: allowlist secret
-    integration:
-      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables  # pragma: allowlist secret
-    production:
-      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables     # pragma: allowlist secret
-
 Resources:
   FargateCluster:
   Type: AWS::ECS::Cluster
@@ -240,24 +221,6 @@ Resources:
               awslogs-region: "eu-west-2"
               awslogs-create-group: "true"
               awslogs-stream-prefix: "ecs"
-          HealthCheck:
-            Command:  [ "CMD-SHELL", "curl --fail http://localhost:8000/healthcheck || exit 1" ]
-          Secrets:
-          - Name: DT_TENANT
-            ValueFrom: !Join
-              - ''
-              - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-                - ':DT_TENANT::'
-          - Name: DT_TENANTTOKEN
-            ValueFrom: !Join
-              - ''
-              - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-                - ':DT_TENANTTOKEN::'
-          - Name: DT_CONNECTION_POINT
-            ValueFrom: !Join
-            - ''
-            - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-              - ':DT_CONNECTION_POINT::'
       Cpu: 1024
       Memory: 2048
       ExecutionRoleArn: !GetAtt TaskExecutionRole.Arn
