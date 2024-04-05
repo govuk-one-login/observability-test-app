@@ -110,7 +110,7 @@ Resources:
           - ECS
       LoadBalancers:
         - ContainerName: !Sub "${AWS::StackName}-node-server"
-          ContainerPort: 80
+          ContainerPort: 8000
           TargetGroupArn: !Ref ApplicationLoadBalancerTargetGroup
       NetworkConfiguration:
         AwsvpcConfiguration:
