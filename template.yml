@@ -85,18 +85,18 @@ Conditions:
 
 Resources:
   FargateCluster:
-  Type: AWS::ECS::Cluster
-  Properties:
-    ClusterSettings:
-      - Name: containerInsights
-        Value: enabled
-    Tags:
-      - Key: Name
-        Value: !Sub "${AWS::StackName}-FargateCluster"
-      - Key: Service
-        Value: ci/cd
-      - Key: Source
-        Value: govuk-one-login/devplatform-demo-sam-app/node/template.yaml
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}-FargateCluster"
+        - Key: Service
+          Value: ci/cd
+        - Key: Source
+          Value: govuk-one-login/devplatform-demo-sam-app/node/template.yaml
 
   ContainerService:
     Type: AWS::ECS::Service
