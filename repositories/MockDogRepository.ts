@@ -12,5 +12,15 @@ export class MockDogRepository implements DogRepository {
   async ListDogs(): Promise<Dog[]> {
     return this.dogs;
   }
+
+  async GetDog(id: number): Promise<Dog> {
+    return this.dogs[id];
+  }
   
+  async NewDog(dog: Dog): Promise<Dog> {
+    dog.id = this.dogs.length;
+    this.dogs[dog.id] = dog;
+
+    return dog;
+  }
 }

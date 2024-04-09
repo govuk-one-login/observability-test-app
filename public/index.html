@@ -7,7 +7,46 @@
     <h2>List of Dogs</h2>
 
     <div id="dogs"></div>
+
+    <h2>Add a dog</h2>
+    <form action="/api/dogs" method="POST">
+      <div>
+        <label for="name">Name</label>
+        <input name="name" id="name" />
+      </div>
+      <div>
+        <label for="breed">Breed</label>
+        <input name="breed" id="breed" />
+      </div>
+      <div>
+        <label for="age">Age</label>
+        <input name="age" id="age" />
+      </div>
+      <div>
+        <button>Submit</button>
+      </div>
+    </form>
+    <h2>Find a dog</h2>
+    <form action="" method="GET">
+      <div>
+        <label for="id">ID</label>
+        <input name="id" id="id" />
+      </div>
+      <div>
+        <input type="button" name="button" value="Submit" onClick="getDog(this.form)">
+      </div>
+    </form>
+    <div id="dog"></div>
     <script>
+      function getDog(form) {
+        const id = form.id.value;
+        const path = `/api/dogs/${id}`;
+        fetch(path).then(r => r.json())
+          .then(r => {
+            document.getElementById("dog").innerHTML = JSON.stringify(r);
+            });
+        }
+
       fetch('/api/dogs').then(r => r.json())
         .then(r => {
           document.getElementById("dogs").innerHTML = JSON.stringify(r);
